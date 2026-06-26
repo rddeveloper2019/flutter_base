@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flutter Cheatsheet</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #4fc3f7;
+            border-bottom: 2px solid #4fc3f7;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #81c784;
+            margin: 25px 0 10px;
+            font-size: 1.3em;
+        }
+
+        h3 {
+            color: #ffb74d;
+            margin: 15px 0 8px;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: #252526;
+            border-left: 4px solid #4fc3f7;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .cmd-block {
+            position: relative;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 50px 12px 12px;
+            margin: 8px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .cmd-block code {
+            color: #79c0ff;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #2ea043;
+        }
+
+        .copy-btn.copied {
+            background: #1f6feb;
+        }
+
+        .note {
+            background: #2d2d30;
+            border-left: 3px solid #f0ad4e;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .warn {
+            background: #3d2020;
+            border-left: 3px solid #f44336;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #ff6b6b;
+        }
+
+        .all-in-one {
+            background: #1a2e1a;
+            border: 2px solid #4caf50;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #0d6efd;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🚀 Flutter Cheatsheet</h1>
+
+    <!-- ================= ОЧИСТКА ПРОЕКТА ================= -->
+    <div class="section">
+        <h2>🧹 Очистка проекта</h2>
+
+        <h3>Базовая очистка</h3>
+        <div class="cmd-block"><code>flutter clean</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button>
+        </div>
+
+        <h3>Удаление lock-файлов и кэшей</h3>
+        <div class="cmd-block"><code>rm -f pubspec.lock
+rm -rf .dart_tool
+rm -f .flutter-plugins
+rm -f .flutter-plugins-dependencies
+rm -rf .idea</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Очистка Android-сборки</h3>
+        <div class="cmd-block"><code>rm -rf android/.gradle
+rm -rf android/build
+rm -rf android/app/build
+rm -f android/local.properties</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= GRADLE КЭШ ================= -->
+    <div class="section">
+        <h2>📦 Глобальный Gradle кэш</h2>
+
+        <div class="warn">⚠️ После очистки первая сборка займёт 10-20 минут!</div>
+
+        <h3>Убить Java/Gradle процессы</h3>
+        <div class="cmd-block"><code>taskkill //F //IM java.exe 2>/dev/null
+taskkill //F //IM gradle.exe 2>/dev/null</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Удалить глобальные кэши</h3>
+        <div class="cmd-block"><code>rm -rf ~/.gradle/caches
+rm -rf ~/.gradle/daemon
+rm -rf ~/.gradle/wrapper/dists</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= FLUTTER/DART КЭШ ================= -->
+    <div class="section">
+        <h2>⚙️ Flutter / Dart кэш</h2>
+
+        <div class="cmd-block"><code>dart pub cache repair
+flutter precache --force
+flutter doctor</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= BUILD RUNNER ================= -->
+    <div class="section">
+        <h2>🔧 Build Runner</h2>
+
+        <h3>Разовая генерация</h3>
+        <div class="cmd-block"><code>dart run build_runner build --delete-conflicting-outputs</code><button
+                class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Watch mode (автогенерация при сохранении)</h3>
+        <div class="cmd-block"><code>dart run build_runner watch --delete-conflicting-outputs</code><button
+                class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Очистить и перегенерировать</h3>
+        <div class="cmd-block"><code>dart run build_runner clean
+dart run build_runner build --delete-conflicting-outputs</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Генерация только для конкретного файла</h3>
+        <div class="cmd-block"><code>dart run build_runner build --build-filter="lib/models/**"</code><button
+                class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= ЗАПУСК ================= -->
+    <div class="section">
+        <h2>▶️ Запуск</h2>
+
+        <h3>Список устройств</h3>
+        <div class="cmd-block"><code>flutter devices</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Запуск на устройстве по умолчанию</h3>
+        <div class="cmd-block"><code>flutter run</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button>
+        </div>
+
+        <h3>Запуск на конкретном устройстве</h3>
+        <div class="cmd-block"><code>flutter run -d &lt;device_id&gt;</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Удалить приложение с устройства</h3>
+        <div class="cmd-block"><code>flutter install --uninstall</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Hot reload (внутри flutter run)</h3>
+        <div class="cmd-block"><code>r   # hot reload
+R   # hot restart
+q   # quit</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= СБОРКА APK ================= -->
+    <div class="section">
+        <h2>📱 Сборка APK</h2>
+
+        <h3>Debug APK</h3>
+        <div class="cmd-block"><code>flutter build apk --debug</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Release APK</h3>
+        <div class="cmd-block"><code>flutter build apk --release</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Split APK по архитектуре (меньше размер)</h3>
+        <div class="cmd-block"><code>flutter build apk --split-per-abi</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>App Bundle (для Google Play)</h3>
+        <div class="cmd-block"><code>flutter build appbundle --release</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= РЕШЕНИЕ ПРОБЛЕМ ================= -->
+    <div class="section">
+        <h2>🛠️ Решение проблем</h2>
+
+        <h3>Пересоздать Android-часть (если gradlew сломан)</h3>
+        <div class="cmd-block"><code>flutter create --platforms=android .</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Проверить окружение</h3>
+        <div class="cmd-block"><code>flutter doctor -v</code><button class="copy-btn"
+                onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Проверить Java версию</h3>
+        <div class="cmd-block"><code>java -version</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button>
+        </div>
+
+        <div class="note">💡 Должна быть Java 17 (идёт с Android Studio в папке jbr)</div>
+
+        <h3>Принудительная очистка Gradle wrapper</h3>
+        <div class="cmd-block"><code>cd android
+./gradlew clean
+cd ..
+flutter clean</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <!-- ================= ВСЁ В ОДНОМ ================= -->
+    <div class="section all-in-one">
+        <h2>⚡ ВСЁ В ОДНОМ (копируй целиком)</h2>
+
+        <h3>Полная очистка + переустановка + запуск</h3>
+        <div class="cmd-block"><code>flutter clean && \
+rm -f pubspec.lock && \
+rm -rf android/.gradle android/build android/app/build android/local.properties && \
+rm -rf .dart_tool .flutter-plugins .flutter-plugins-dependencies .idea && \
+taskkill //F //IM java.exe 2>/dev/null ; \
+taskkill //F //IM gradle.exe 2>/dev/null ; \
+rm -rf ~/.gradle/caches ~/.gradle/daemon ~/.gradle/wrapper/dists && \
+dart pub cache repair && \
+flutter pub get && \
+dart run build_runner build --delete-conflicting-outputs && \
+flutter run</code><button class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <div class="warn">⚠️ Первый запуск после такой очистки: 10-20 минут</div>
+    </div>
+
+    <!-- ================= PUB ADD ================= -->
+    <div class="section">
+        <h2>📥 Автоподбор версий (без конфликтов)</h2>
+
+        <div class="note">💡 Если pub get ругается на версии — используй эти команды. Pub сам подберёт совместимые.
+        </div>
+
+        <h3>Основные зависимости</h3>
+        <div class="cmd-block">
+            <code>flutter pub add flutter_bloc bloc flutter_riverpod riverpod_annotation hooks_riverpod flutter_hooks provider dio dio_cache_interceptor dio_cache_interceptor_hive_store retrofit equatable fpdart freezed_annotation json_annotation intl go_router get_it injectable animate_do cached_network_image flutter_svg shimmer flutter_screenutil shared_preferences hive_ce hive_ce_flutter path_provider</code><button
+                class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+
+        <h3>Dev зависимости</h3>
+        <div class="cmd-block">
+            <code>flutter pub add dev:build_runner freezed json_serializable retrofit_generator injectable_generator riverpod_generator mocktail bloc_test flutter_lints</code><button
+                class="copy-btn" onclick="copyCmd(this)">Copy</button></div>
+    </div>
+
+    <script>
+        function copyCmd(btn) {
+            const code = btn.parentElement.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.innerText;
+                btn.innerText = '✓ Copied';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerText = original;
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
